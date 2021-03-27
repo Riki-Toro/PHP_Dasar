@@ -1,3 +1,16 @@
+<?php
+    // koneksi ke database
+    $koneksi = mysqli_connect("localhost", "root", "", "phpdasar");
+
+    // ambil data dari tabel
+    $ambil = mysqli_query($koneksi, "SELECT * FROM tokoriki");
+
+    // ambil data dari tabel lalu simpan dalam kotak
+    // while($toko = mysqli_fetch_assoc($ambil)) {
+    //     var_dump($toko);
+    // };
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +32,24 @@
             <th>Expired</th>
             <th>Aksi</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td><img src="gambar/beras.jpg" width="50"></td>
-            <td>Beras</td>
-            <td>Rak 1</td>
-            <td>Rp. 50000</td>
-            <td>PT Bulog (Persero)</td>
-            <td>13-05-2021</td>
-            <td>
-                <a href="">Edit</a>
-                <a href="">Hapus</a>
-            </td>
-        </tr>
+
+        <?php $i = 1; ?>
+        <?php while($toko = mysqli_fetch_assoc($ambil)) : ?>
+            <tr>
+                <td><?php echo $i;?></td>
+                <td><img src="gambar/<?php echo $toko["gambar"]; ?>" width="50"></td>
+                <td><?php echo $toko["namaBarang"]; ?></td>
+                <td><?php echo $toko["rak"]; ?></td>
+                <td>Rp. <?php echo $toko["harga"]; ?></td>
+                <td><?php echo $toko["diproduksi"]; ?></td>
+                <td><?php echo $toko["expired"]; ?></td>
+                <td>
+                    <a href="">Edit</a>
+                    <a href="">Hapus</a>
+                </td>
+            </tr>
+        <?php $i++ ?>
+        <?php endwhile; ?>
     </table>
 </body>
 </html>
