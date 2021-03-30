@@ -1,15 +1,10 @@
 <?php
-    // koneksi ke database
-    $koneksi = mysqli_connect("localhost", "root", "", "phpdasar");
+    // menghubungkan functions
+    require 'functionsTugas.php';
 
     // ambil data dari tabel
-    $ambil = mysqli_query($koneksi, "SELECT * FROM tokoriki");
+    $toko = ambil("SELECT * FROM tokoriki");
 
-    // ambil data dari tabel lalu simpan dalam kotak
-    // while($toko = mysqli_fetch_assoc($ambil)) {
-    //     var_dump($toko);
-    // };
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Riki</title>
+    <title>Admin Toko Riki</title>
 </head>
 <body>
     <h1>Daftar Barang Toko Riki</h1>
@@ -34,22 +29,22 @@
         </tr>
 
         <?php $i = 1; ?>
-        <?php while($toko = mysqli_fetch_assoc($ambil)) : ?>
+        <?php foreach( $toko as $item ) : ?>
             <tr>
                 <td><?php echo $i;?></td>
-                <td><img src="gambar/<?php echo $toko["gambar"]; ?>" width="50"></td>
-                <td><?php echo $toko["namaBarang"]; ?></td>
-                <td><?php echo $toko["rak"]; ?></td>
-                <td>Rp. <?php echo $toko["harga"]; ?></td>
-                <td><?php echo $toko["diproduksi"]; ?></td>
-                <td><?php echo $toko["expired"]; ?></td>
+                <td><img src="gambar/<?php echo $item["gambar"]; ?>" width="50"></td>
+                <td><?php echo $item["namaBarang"]; ?></td>
+                <td><?php echo $item["rak"]; ?></td>
+                <td>Rp. <?php echo $item["harga"]; ?></td>
+                <td><?php echo $item["diproduksi"]; ?></td>
+                <td><?php echo $item["expired"]; ?></td>
                 <td>
                     <a href="">Edit</a>
                     <a href="">Hapus</a>
                 </td>
             </tr>
         <?php $i++ ?>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     </table>
 </body>
 </html>
