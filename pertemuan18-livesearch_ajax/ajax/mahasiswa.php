@@ -1,4 +1,5 @@
 <?php
+    usleep(1000000);
     require '../functions.php';
 
     $keyword = $_GET["keyword"];
